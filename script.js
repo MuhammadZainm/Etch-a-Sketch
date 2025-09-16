@@ -1,6 +1,6 @@
-// // const { createElement } = require("react")
 
-// const { createElement } = require("react");
+alert("To ERASE First right click and then hover")
+
   const container= document.querySelector("#container")
 function makeStuff(n){
   
@@ -21,10 +21,23 @@ container.appendChild(col)
 
 
 }
+let mousedown=2;
+document.addEventListener("mousedown",()=>{
+    mousedown=1;
+})
+document.addEventListener("mouseup",()=>{
+    mousedown=2;
+})
+document.addEventListener("contextmenu",(e)=>{
+    e.preventDefault();
+    mousedown=3;
+      
+})
 document.querySelectorAll(".cell").forEach(c => {
     c.dataset.shade = 0; // track how many times hovered
 
     c.addEventListener("mouseover", () => {
+        if(mousedown===1){
         let shade = parseInt(c.dataset.shade);
         if (shade < 10) {
             shade++;
@@ -35,8 +48,10 @@ document.querySelectorAll(".cell").forEach(c => {
             c.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${shade / 10})`; 
             // grey with opacity increasing
         }
+    } else if(mousedown===3){
+c.style.backgroundColor="white"
+        }});
     });
-});
 }
 makeStuff(16)
 const btnmode=document.createElement("div")
